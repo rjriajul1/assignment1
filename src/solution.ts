@@ -32,6 +32,7 @@ class Person {
    }
 }
 
+
 type Item = {
     title: string;
     rating: number;
@@ -41,7 +42,7 @@ const filterByRating = (items: Item[]): Item[] => {
    return items.filter((item)=>item.rating >= 4)
 }
 
-const products: Item[] = [
+const books: Item[] = [
    {title: 'Book A', rating: 5},
    {title: 'Book B', rating: 3.2},
    {title: 'Book C', rating: 5.0}
@@ -87,5 +88,31 @@ const myBook: Book = {
    isAvailable: false
 }
 
-printBookDetails(myBook)
 
+
+interface Product {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+}
+
+const calculateTotalPrice = (products: Product[]): number => {
+  if (products.length === 0) return 0;
+
+  return products.reduce((total, product) => {
+
+    const basePrice = product.price * product.quantity;
+
+    const finalPrice = product.discount
+    ? basePrice - (basePrice * product.discount / 100)
+    : basePrice;
+    return total + finalPrice;
+  }, 0);
+};
+
+const products: Product[] = [
+  { name: 'Pen', price: 10, quantity: 2 },
+  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
+  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
+];
