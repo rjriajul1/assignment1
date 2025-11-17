@@ -47,4 +47,15 @@ const users = [
     { id: 2, name: 'Asha', email: 'asha@example.com', isActive: false },
     { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
 ];
+const printBookDetails = (book) => {
+    const availability = book.isAvailable ? "Yes" : "No";
+    console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${availability}`);
+};
+const myBook = {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    publishedYear: 1925,
+    isAvailable: false
+};
+printBookDetails(myBook);
 //# sourceMappingURL=solution.js.map
