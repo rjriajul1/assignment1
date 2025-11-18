@@ -10,7 +10,7 @@ const formatValue = <T extends string | number | boolean> (value: T): string | n
 }
 
 
-const getLength = <T extends string | any[]> (value: T): number => {
+const getLength = <T extends string | unknown[]> (value: T): number => {
          if(typeof value === 'string'){
            return value.length;
          }else if(Array.isArray(value)) {
@@ -18,6 +18,7 @@ const getLength = <T extends string | any[]> (value: T): number => {
          }
          return 0;
 }
+
 
 
 class Person {
@@ -33,6 +34,7 @@ class Person {
 }
 
 
+
 type Item = {
     title: string;
     rating: number;
@@ -41,12 +43,6 @@ type Item = {
 const filterByRating = (items: Item[]): Item[] => {
    return items.filter((item)=>item.rating >= 4)
 }
-
-const books: Item[] = [
-   {title: 'Book A', rating: 5},
-   {title: 'Book B', rating: 3.2},
-   {title: 'Book C', rating: 5.0}
-]
 
 
 
@@ -61,11 +57,6 @@ const filterActiveUsers = (users: User[]):User[] => {
   return users.filter((user)=> user.isActive === true)
 }
 
-const users: User[] = [
-   {id:1, name: 'Rakib', email: 'rakib@example.com', isActive: true},
-   {id:2, name: 'Asha', email: 'asha@example.com', isActive: false},
-   {id:3, name: 'Rumi', email: 'rumi@example.com', isActive: true},
-]
 
 
 interface Book {
@@ -78,15 +69,54 @@ interface Book {
 const printBookDetails = (book: Book): void => {
    
    const availability = book.isAvailable ? "Yes" : "No"
+
    console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${availability}`);
 }
 
-const myBook: Book = {
-   title: "The Great Gatsby",
-   author: "F. Scott Fitzgerald",
-   publishedYear: 1925,
-   isAvailable: false
-}
+
+
+const getUniqueValues = (
+  arr1: (string | number)[],
+  arr2: (string | number)[]
+): (string | number)[] => {
+
+   const result: (string | number)[] = [];
+
+  
+  for (let i = 0; i < arr1.length; i++) {
+    let found = false;
+
+   
+    for (let j = 0; j < result.length; j++) {
+      if (result[j] === arr1[i]) {
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      result[result.length] = arr1[i];
+    }
+  }
+
+  
+  for (let i = 0; i < arr2.length; i++) {
+    let found = false;
+
+    for (let j = 0; j < result.length; j++) {
+      if (result[j] === arr2[i]) {
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      result[result.length] = arr2[i];
+    }
+  }
+
+  return result;
+};
 
 
 
@@ -111,8 +141,3 @@ const calculateTotalPrice = (products: Product[]): number => {
   }, 0);
 };
 
-const products: Product[] = [
-  { name: 'Pen', price: 10, quantity: 2 },
-  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
-  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
-];
